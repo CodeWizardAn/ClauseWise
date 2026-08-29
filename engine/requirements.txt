@@ -1,0 +1,20 @@
+# ClauseWise engine sidecar — text extraction and PII redaction.
+# Pinned so a rebuild cannot silently change behaviour.
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+python-multipart==0.0.32
+pymupdf==1.28.2
+python-docx==1.2.0
+
+# PII redaction (Phase 1). The spaCy model is installed from its release URL
+# because it is not published on PyPI.
+presidio-analyzer==2.2.364
+presidio-anonymizer==2.2.364
+en_core_web_md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl
+
+# Multilingual (Phase 5). Needed only to rebuild the translation catalogue;
+# the app serves the prebuilt catalog.json without these installed.
+torch==2.13.0
+transformers<5
+IndicTransToolkit==1.1.1
+sentencepiece==0.2.2

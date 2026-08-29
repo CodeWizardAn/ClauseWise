@@ -1,0 +1,41 @@
+# ClauseWise — Phase 0.
+# Two services: the Next.js app and the Python extraction sidecar.
+#
+#   docker compose up --build
+#
+# The engine is deliberately NOT published to the host. Only the web service
+# can reach it, over the private compose network, which keeps the extraction
+# service off the machine's public surface.
+
+services:
+  engine:
+    build: ./engine
+    environment:
+      MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-10485760}
+    expose:
+      - "8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      # The engine loads spaCy and Presidio models before serving.
+      start_period: 90s
+    restart: unless-stopped
+
+  web:
+    build: ./web
+    environment:
+      # Service name on the compose network, not localhost.
+      ENGINE_URL: http://engine:8000
+      MAX_UPLOAD_BYTES: ${MAX_UPLOAD_BYTES:-10485760}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      engine:
+        condition: service_healthy
+    restart: unless-stopped
