@@ -1,0 +1,13 @@
+# Translation toolchain — local use only, never in the deployed image.
+#
+# Installing this brings in torch (~2 GB). It is required ONLY to regenerate
+# web/src/lib/i18n/catalog.json via POST /translate. The running app serves the
+# committed catalogue and does not import any of it; translation.py imports
+# these lazily and raises TranslationUnavailable when they are absent, which the
+# caller turns into a fallback to English.
+-r requirements.txt
+
+torch==2.13.0
+transformers<5
+IndicTransToolkit==1.1.1
+sentencepiece==0.2.2

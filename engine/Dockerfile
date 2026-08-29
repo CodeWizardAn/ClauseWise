@@ -16,4 +16,6 @@ RUN useradd --system --uid 1001 engine
 USER engine
 
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Shell form so ${PORT} expands. Render (and most PaaS) assign the port at
+# runtime; the 8000 fallback keeps docker compose working unchanged.
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
