@@ -13,7 +13,7 @@ import { config } from "@/lib/config";
 import { generateComparisonReport } from "@/lib/compare";
 import { detectDocumentType } from "@/lib/doc-type";
 import { hasAcceptedExtension } from "@/lib/documents";
-import { loadDocument } from "@/lib/documents-repo";
+import { accessDocument } from "@/lib/documents-repo";
 import { extractFigures, type ExtractedFigures } from "@/lib/figures";
 import { segmentClauses, type SegmentedClause } from "@/lib/segment";
 
@@ -70,9 +70,6 @@ async function extractViaSidecar(file: File): Promise<SidecarExtractResponse> {
 }
 
 export async function POST(request: Request) {
-  const authed = await requireUser();
-  if (!authed.ok) return authed.response;
-
   const contentType = request.headers.get("content-type") || "";
 
   let clausesA: SegmentedClause[];
@@ -82,8 +79,11 @@ export async function POST(request: Request) {
   let filenameA = "Version A";
   let filenameB = "Version B";
 
-  // Mode 1: Compare from Saved Document IDs (JSON)
+  // Mode 1: Compare from Saved Document IDs (JSON - Requires Auth)
   if (contentType.includes("application/json")) {
+    const authed = await requireUser();
+    if (!authed.ok) return authed.response;
+
     let body: { documentIdA?: string; documentIdB?: string };
     try {
       body = await request.json();
@@ -96,8 +96,8 @@ export async function POST(request: Request) {
       return fail("Both documentIdA and documentIdB are required.", 400);
     }
 
-    const resA = await loadDocument(authed.user.id, documentIdA);
-    const resB = await loadDocument(authed.user.id, documentIdB);
+    const resA = await accessDocument(documentIdA, authed.user.userId);
+    const resB = await accessDocument(documentIdB, authed.user.userId);
 
     if (!resA.ok || !resB.ok) {
       return fail("One or both selected documents could not be found or accessed.", 404);
