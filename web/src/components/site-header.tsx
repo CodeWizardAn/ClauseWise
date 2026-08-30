@@ -122,10 +122,10 @@ export function SiteHeader() {
                 </a>
                 <Menu items={DOCTYPES} />
               </div>
-              <a className="nav-link" href="/compare">
+              <a className="nav-link" href="#compare">
                 Compare
               </a>
-              <a className="nav-link" href="/glossary">
+              <a className="nav-link" href="#glossary">
                 Glossary
               </a>
               <a className="nav-link" href="#privacy">

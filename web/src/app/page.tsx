@@ -9,6 +9,8 @@ import { Hero } from "@/components/sections/hero";
 import { Intro } from "@/components/sections/intro";
 import { Showcase } from "@/components/sections/showcase";
 import { DocTypes } from "@/components/sections/doctypes";
+import { CompareFeature } from "@/components/sections/compare-feature";
+import { GlossaryFeature } from "@/components/sections/glossary-feature";
 import { Multilingual } from "@/components/sections/multilingual";
 import { Privacy } from "@/components/sections/privacy";
 import { FinalCta } from "@/components/sections/finalcta";
@@ -53,6 +55,8 @@ export default function Home() {
           </div>
         </section>
 
+        <CompareFeature />
+        <GlossaryFeature />
         <Multilingual />
         <Privacy />
         <FinalCta />
