@@ -9,13 +9,11 @@ import { Icon, type IconName } from "@/components/icon-sprite";
 
 /**
  * Signed-in app shell, ported from the design system.
- *
- * The design's rail listed Compare Documents, Risk Alerts and a Glossary. None
- * of those are built, so they are not here — every link below goes somewhere
- * real. The identity block is Clerk's, not the prototype's hardcoded name.
  */
 const NAV: { href: string; icon: IconName; label: string }[] = [
   { href: "/dashboard", icon: "home", label: "Dashboard" },
+  { href: "/compare", icon: "compare", label: "Compare" },
+  { href: "/glossary", icon: "book", label: "Glossary" },
 ];
 
 /** Sidebar collapse is a display preference — no document data is stored. */

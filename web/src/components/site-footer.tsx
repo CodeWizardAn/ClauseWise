@@ -39,6 +39,8 @@ export function SiteFooter() {
           <div>
             <h5 className="foot-col-title">Product</h5>
             <a className="foot-link" href="/dashboard">Dashboard</a>
+            <a className="foot-link" href="/compare">Compare Versions</a>
+            <a className="foot-link" href="/glossary">Legal Glossary</a>
             <a className="foot-link" href="#how">How it Works</a>
             <a className="foot-link" href="#privacy">Privacy &amp; redaction</a>
             <a

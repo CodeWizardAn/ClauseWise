@@ -14,8 +14,7 @@ export const metadata = { title: "Dashboard — ClauseWise" };
  * session server-side, and ownership is enforced again at the data layer.
  */
 export default async function DashboardPage() {
-  const { userId } = await auth();
-  if (!userId) redirect("/");
+  const { userId } = await auth.protect();
 
   return (
     <AppShell active="Dashboard" crumb={<b>Dashboard</b>}>

@@ -46,12 +46,11 @@ export function Privacy() {
               </div>
             </div>
             <div className="trust-item">
-              <Icon name="loan" />
+              <Icon name="tos" />
               <div>
-                <b>Encrypted at rest</b>
+                <b>No third-party sharing</b>
                 <span>
-                  Saved analyses are encrypted with AES-256-GCM and readable only by the account
-                  that created them.
+                  Your data is never sold, shared, or indexed by third-party search engines.
                 </span>
               </div>
             </div>

@@ -13,8 +13,7 @@ export const metadata = { title: "Analysis — ClauseWise" };
  * screen calls — another account's id returns 403 and never its contents.
  */
 export default async function AnalysisPage({ params }: PageProps<"/analysis/[id]">) {
-  const { userId } = await auth();
-  if (!userId) redirect("/");
+  const { userId } = await auth.protect();
 
   const { id } = await params;
   return <AnalysisScreen documentId={id} />;

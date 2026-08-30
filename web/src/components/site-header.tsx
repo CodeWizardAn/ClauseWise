@@ -105,7 +105,7 @@ export function SiteHeader() {
       <header className={`site-header${scrolled ? " scrolled" : ""}`}>
         <div className="container">
           <div className="nav-shell">
-            <Logo />
+            <Logo size="lg" />
             <nav className="nav-links">
               <div className="nav-item">
                 <a className="nav-link" href="#features">
@@ -122,6 +122,12 @@ export function SiteHeader() {
                 </a>
                 <Menu items={DOCTYPES} />
               </div>
+              <a className="nav-link" href="/compare">
+                Compare
+              </a>
+              <a className="nav-link" href="/glossary">
+                Glossary
+              </a>
               <a className="nav-link" href="#privacy">
                 Privacy
               </a>
@@ -190,6 +196,12 @@ export function SiteHeader() {
               <Icon name={d.icon} /> {d.title}
             </a>
           ))}
+          <a className="sheet-link" href="/compare" onClick={() => setSheet(false)}>
+            <Icon name="compare" /> Compare Documents
+          </a>
+          <a className="sheet-link" href="/glossary" onClick={() => setSheet(false)}>
+            <Icon name="book" /> Legal Glossary
+          </a>
         </div>
 
         {/* The five languages the catalogue actually ships. Informational here;
